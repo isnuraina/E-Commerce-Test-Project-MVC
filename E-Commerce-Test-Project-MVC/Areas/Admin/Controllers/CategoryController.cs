@@ -102,7 +102,8 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim());
+            bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim()
+            && m.Id!=category.Id);
             if (existCategoryCheck)
             {
                 ModelState.AddModelError("Name", "Category already exist !");
