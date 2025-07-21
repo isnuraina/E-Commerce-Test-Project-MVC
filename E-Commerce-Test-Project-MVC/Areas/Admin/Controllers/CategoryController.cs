@@ -33,6 +33,16 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task <IActionResult> Create(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            bool existCategory = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim());
+            if (existCategory)
+            {
+                ModelState.AddModelError("Name", "Category already exist !");
+                return View();
+            }
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
