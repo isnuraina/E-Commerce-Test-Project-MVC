@@ -1,4 +1,5 @@
-﻿using E_Commerce_Test_Project_MVC.Data;
+﻿using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Category;
+using E_Commerce_Test_Project_MVC.Data;
 using E_Commerce_Test_Project_MVC.Models;
 using E_Commerce_Test_Project_MVC.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,8 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
         {
             //return View(await _categoryService.GetAllAsync());
             var categories = await _context.Categories.ToListAsync();
-            return View(categories);
+            var result = categories.Select(m => new CategoryVM { Id = m.Id, Name = m.Name });
+            return View(result);
         }
         [HttpGet]
         public IActionResult Create()
@@ -32,7 +34,7 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <IActionResult> Create(Category category)
+        public async Task <IActionResult> Create(CategoryCreateVM category)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +46,7 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
                 ModelState.AddModelError("Name", "Category already exist !");
                 return View();
             }
-            await _context.Categories.AddAsync(category);
+            await _context.Categories.AddAsync(new Category { Name=category.Name});
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -60,7 +62,7 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(category);
+            return View(new CategoryDetailVM {Name=category.Name});
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,6 +73,20 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var existCategory = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+        //    if (existCategory is null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(existCategory);
+        //}
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -83,11 +99,39 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(existCategory);
+            return View(new CategoryEditVM { Name=existCategory.Name});
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int? id,Category category)
+        //{
+        //    if (id is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(category);
+        //    }
+        //    var existCategory = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+        //    if (existCategory is null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim()
+        //    && m.Id!=category.Id);
+        //    if (existCategoryCheck)
+        //    {
+        //        ModelState.AddModelError("Name", "Category already exist !");
+        //        return View();
+        //    }
+        //    existCategory.Name = category.Name;
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id,Category category)
+        public async Task<IActionResult> Edit(int? id, CategoryEditVM category)
         {
             if (id is null)
             {
@@ -102,8 +146,9 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim()
-            && m.Id!=category.Id);
+            //bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim()
+            //&& m.Id != category.Id);
+            bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim());
             if (existCategoryCheck)
             {
                 ModelState.AddModelError("Name", "Category already exist !");
