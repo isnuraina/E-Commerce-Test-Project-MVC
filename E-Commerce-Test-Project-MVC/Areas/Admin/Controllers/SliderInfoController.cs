@@ -20,5 +20,19 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             var sliderInfo = await _context.SliderInfos.AsNoTracking().ToListAsync();
             return View(sliderInfo);
         }
+        [HttpGet]
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id is null)
+            {
+                return BadRequest();
+            }
+            var sliderInfo = await _context.SliderInfos.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            if (sliderInfo is null)
+            {
+                return NotFound();
+            }
+            return View(sliderInfo);
+        }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model SliderInfo
+<div class="table-responsive mt-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Text
+                </th>
+
+                <th>
+                    Mini Text
+                </th>
+
+                <th>
+                    Description
+                </th>
+              
+
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+           
+                <tr>
+                    <td>
+                        <img src="~/assets/img/@Model.Signature" style="width: 80px; height: 40px; border: 1px solid  black;">
+                    </td>
+                    <td>
+                        <h5 style="width: 250px;  padding:10px; border: 1px solid  black;">
+                            @Model.Text
+                        </h5>
+                    </td>
+
+
+                    <td>
+                        <h4>
+                            @Model.MiniText
+                        </h4>
+                    </td>
+
+                    <td>
+                        <h6>
+                            @Html.Raw(
+                                     Model.Description
+                                     )
+                        </h6>
+                    </td>
+                   
+                </tr>
+            <a asp-area="Admin" asp-controller="SliderInfo" asp-action="Index" class="btn btn-danger">Back</a>
+        </tbody>
+    </table>
+</div>

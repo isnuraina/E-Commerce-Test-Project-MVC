@@ -4,7 +4,6 @@ using E_Commerce_Test_Project_MVC.Services.Interfaces;
 using E_Commerce_Test_Project_MVC.ViewModels.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace E_Commerce_Test_Project_MVC.Controllers
 {
@@ -25,7 +24,7 @@ namespace E_Commerce_Test_Project_MVC.Controllers
             IEnumerable<Slider> sliders = await _context.Sliders.AsNoTracking().ToListAsync();
             IEnumerable<Category> categories = await _categoryService.GetAllAsync();
             IEnumerable<Product> products = await _productService.GetAllAsync();
-            SliderInfo sliderInfos = await _context.SliderInfos.AsNoTracking().FirstOrDefaultAsync();
+            SliderInfo sliderInfos = await _context.SliderInfos.AsNoTracking().FirstOrDefaultAsync(m=>m.IsMain==true);
             HomeVM model = new()
             {
                 Sliders = sliders,
