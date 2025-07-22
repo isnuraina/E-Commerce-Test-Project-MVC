@@ -15,15 +15,18 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="text">
-                        <h1>Send <span>flowers</span> like</h1>
-                        <h1>you mean it</h1>
-                        <p class="text-black-50 d-none d-sm-block">Where flowers are our inspiration to create lasting memories. Whatever the occasion, our flowers will
-                            make it special cursus a sit amet mauris. </p>
+                       
+                          @Html.Raw(Model.SliderInfos.Description)
+                        
+                        <h1>@Model.SliderInfos.MiniText</h1>
+                        <p class="text-black-50 d-none d-sm-block"> @Model.SliderInfos.Text</p>
                     </div>
-                    <div class="img">
-                        <img src="~/assets/img/h2-sign-img.png" alt="">
+
+                                     <div class="img">
+                        <img src="~/assets/img/@Model.SliderInfos.Signature" alt="">
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>

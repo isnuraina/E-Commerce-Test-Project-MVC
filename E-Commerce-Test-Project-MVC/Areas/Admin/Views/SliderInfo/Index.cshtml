@@ -1,0 +1,76 @@
+﻿@using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Slider
+@model IEnumerable<SliderInfo>
+<div class="container-fluid mt-4">
+    <h1 class="text-center">Slider Info</h1>
+    <a class="btn btn-success mt-2" asp-controller="SliderInfo" asp-action="Create">Create</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Text
+                    </th>
+
+                    <th>
+                        Mini Text
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+                    @foreach(var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            <img src="~/assets/img/@item.Signature" style="width: 80px; height: 40px; border: 1px solid  black;">
+                        </td>
+                        <td>
+                            <h5 style="width: 250px;  padding:10px; border: 1px solid  black;">
+                                @item.Text
+                            </h5>
+                        </td>
+
+
+                        <td>
+                            <h4>
+                                @item.MiniText
+                            </h4>
+                        </td>
+
+                        <td>
+                            <h6>
+                                @Html.Raw(
+                                       item.Description
+                                         )
+                            </h6>
+                        </td>
+
+
+                        <td>
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <form class="d-inline" asp-action="Delete" method="post" asp-route-id="@item.Id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    }
+         
+               
+            </tbody>
+        </table>
+    </div>
+</div>

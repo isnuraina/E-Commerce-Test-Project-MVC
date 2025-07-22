@@ -13,5 +13,6 @@ namespace E_Commerce_Test_Project_MVC.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<SliderInfo> SliderInfos { get; set; }
     }
 }
