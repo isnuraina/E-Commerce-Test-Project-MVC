@@ -1,0 +1,49 @@
+﻿
+@model SliderInfoCreateVM
+
+
+
+   <h1>
+        Create Slider Info
+   </h1>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" class="form-control" type="file" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SignaturePathName" class="control-label"></label>
+        <input asp-for="SignaturePathName" class="form-control" />
+        <span asp-validation-for="SignaturePathName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Text" class="control-label"></label>
+        <input asp-for="Text" class="form-control" />
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MiniText" class="control-label"></label>
+        <input asp-for="MiniText" class="form-control" />
+        <span asp-validation-for="MiniText" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

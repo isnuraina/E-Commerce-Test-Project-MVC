@@ -151,7 +151,7 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             bool existCategoryCheck = await _context.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim());
             if (existCategoryCheck)
             {
-                ModelState.AddModelError("Name", "Category already exist !");
+                ModelState.AddModelError("Name", " Category already exist ! ");
                 return View();
             }
             existCategory.Name = category.Name;

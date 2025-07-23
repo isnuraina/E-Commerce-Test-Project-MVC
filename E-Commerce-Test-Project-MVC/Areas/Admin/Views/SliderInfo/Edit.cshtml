@@ -1,0 +1,47 @@
+﻿@model E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.SliderInfo.SliderInfoEditVM
+
+@{
+    ViewData["Title"] = "Edit Slider Info";
+}
+
+<h2>Edit Slider Info</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Current Image:</label><br />
+        <img src="~/assets/img/@Model.ImagePath" alt="Current Image" width="200" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" type="file" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SignaturePathName"></label>
+        <input asp-for="SignaturePathName" class="form-control" />
+        <span asp-validation-for="SignaturePathName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Text"></label>
+        <input asp-for="Text" class="form-control" />
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MiniText"></label>
+        <input asp-for="MiniText" class="form-control" />
+        <span asp-validation-for="MiniText" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+

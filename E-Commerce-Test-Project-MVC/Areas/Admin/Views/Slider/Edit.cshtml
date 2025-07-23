@@ -1,0 +1,16 @@
+﻿@model SliderEditVM
+<div class="container">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <img src="~/assets/img/@Model.ImagePath" alt="Current Image" width="200" />
+        <div class="form-group">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control" type="file" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Yadda saxla</button>
+    </form>
+
+</div>
+
+
+

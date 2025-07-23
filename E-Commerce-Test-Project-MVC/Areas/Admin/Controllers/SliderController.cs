@@ -1,4 +1,5 @@
-﻿using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Slider;
+﻿using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Category;
+using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Slider;
 using E_Commerce_Test_Project_MVC.Data;
 using E_Commerce_Test_Project_MVC.Helpers.Extensions;
 using E_Commerce_Test_Project_MVC.Models;
@@ -95,5 +96,70 @@ namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int?id)
+        {
+            if (id is null)
+            {
+                return BadRequest();
+            }
+            var existSlider = await _context.Sliders.FirstOrDefaultAsync(m => m.Id == id);
+            if (existSlider is null)
+            {
+                return NotFound();
+            }
+            return View(new SliderEditVM { ImagePath=existSlider.Img});        
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, SliderEditVM slider)
+        {
+            if (id is null) return BadRequest();
+
+            var existSlider = await _context.Sliders.FirstOrDefaultAsync(m => m.Id == id);
+            if (existSlider is null) return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                slider.ImagePath = existSlider.Img; 
+                return View(slider);
+            }
+
+            if (slider.Image != null)
+            {
+                if (!slider.Image.ContentType.Contains("image/"))
+                {
+                    ModelState.AddModelError("Image", "Yalnız şəkil faylları yüklənə bilər");
+                    slider.ImagePath = existSlider.Img;
+                    return View(slider);
+                }
+
+                if (slider.Image.Length / 1024 > 100)
+                {
+                    ModelState.AddModelError("Image", "Şəklin ölçüsü maksimum 100KB olmalıdır");
+                    slider.ImagePath = existSlider.Img;
+                    return View(slider);
+                }
+
+                string fileName = Guid.NewGuid() + Path.GetExtension(slider.Image.FileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "assets", "img", fileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await slider.Image.CopyToAsync(stream);
+                }
+
+                string oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "assets", "img", existSlider.Img);
+
+                if (System.IO.File.Exists(oldPath))
+                {
+                    System.IO.File.Delete(oldPath);
+                }
+
+                existSlider.Img = fileName;
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
