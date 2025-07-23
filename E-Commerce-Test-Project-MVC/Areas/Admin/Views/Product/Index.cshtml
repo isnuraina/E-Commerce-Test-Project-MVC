@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Product>
+<div class="container-fluid mt-4">
+    <h1 class="text-center">Categories</h1>
+    <a class="btn btn-success mt-2" asp-controller="Product" asp-action="Create">Create</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                       Main Photo
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Name
+                        </td>
+
+
+                        <td>
+                            @item.Category.Name
+                        </td>
+
+                        <td>
+                            @item.Price
+                        </td>
+                        <td style="width:120px; height:100px">
+                            @item.Description
+                        </td>
+                        <td>
+
+                        <img src="~/assets/img/@(item.ProductImages.FirstOrDefault(m => m.IsMain)?.Img)" style="width:80px; height:100px" class="img-fluid" alt="">
+                        </td>
+
+                        <td>
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-info">Detail</a>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <form class="d-inline" asp-action="Delete" method="post" asp-route-id="@item.Id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

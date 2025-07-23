@@ -16,7 +16,9 @@ namespace E_Commerce_Test_Project_MVC.Services
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return await _context.Products.Include(m => m.ProductImages)
+            return await _context.Products
+                .Include(m=>m.Category)
+                .Include(m => m.ProductImages)
                 .ToListAsync();
         }
 

@@ -1,0 +1,62 @@
+﻿@model Product
+<div class="container-fluid mt-4">
+    <h1 class="text-center">Product Detail Page </h1>
+    <a class="btn btn-success mt-2"  asp-action="Index">Back</a>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Main Photo
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+                        @Model.Name
+                    </td>
+
+
+                    <td>
+                        @Model.Category.Name
+                    </td>
+
+                    <td>
+                        @Model.Price
+                    </td>
+                    <td style="width:120px; height:100px">
+                        @Model.Description
+                    </td>
+                    <td>
+
+                        <img src="~/assets/img/@(Model.ProductImages.FirstOrDefault(m => m.IsMain)?.Img)" style="width:80px; height:100px" class="img-fluid" alt="">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <br />
+        @foreach(var item in Model.ProductImages)
+        {
+            <img src="~/assets/img/@item.Img" style="width:150px; height:120px" class="img-fluid" alt="">
+        }
+    </div>
+</div>
