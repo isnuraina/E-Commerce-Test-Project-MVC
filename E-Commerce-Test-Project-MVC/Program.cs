@@ -12,6 +12,7 @@ namespace E_Commerce_Test_Project_MVC
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             builder.Services.AddControllersWithViews();
 
