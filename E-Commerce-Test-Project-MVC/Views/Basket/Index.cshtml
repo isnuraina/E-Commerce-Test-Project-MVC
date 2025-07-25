@@ -1,0 +1,57 @@
+﻿@model List<BasketVM>
+
+@{
+    ViewData["Title"] = "Səbət";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Səbət</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">Səbət boşdur.</div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="~/assets/img/@item.ImageUrl" class="card-img-top" alt="@item.ProductName" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ProductName</h5>
+                            <p class="card-text text-muted">@item.Description</p>
+                            <p class="mb-1">Qiymət: <strong>@item.Price.ToString("0.00") ₼</strong></p>
+                            <p class="mb-1">Say: <strong>@item.ProductCount</strong></p>
+                            <p class="mb-1">Cəmi: <strong>@(item.Price * item.ProductCount) ₼</strong></p>
+                           
+                            <form asp-controller="Home" asp-action="DecreaseProductFromBasket" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-warning btn-sm">-</button>
+                            </form>
+
+                           
+                            <form asp-controller="Home" asp-action="AddProductToBasket" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-success btn-sm">+</button>
+                            </form>
+
+
+                            <form asp-controller="Home" asp-action="RemoveFromBasket" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-danger btn-sm">x</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-end mt-4 fs-5 fw-bold">
+            Toplam məbləğ:
+            @Model.Sum(x => x.Price * x.ProductCount).ToString("0.00") ₼
+        </div>
+    }
+</div>
