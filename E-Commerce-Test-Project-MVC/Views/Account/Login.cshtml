@@ -1,0 +1,19 @@
+﻿@model LoginVM
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <form method="post" asp-controller="Account" asp-action="Login" class="w-100" style="max-width: 400px;">
+        <h1 class="text-center mb-4">Login</h1>
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="form-group">
+            <input asp-for="EmailOrUsername" class="form-control" placeholder="Write your email or username " />
+            <span class="text-danger" asp-validation-for="EmailOrUsername"></span>
+        </div>     
+        <div class="form-group">
+            <input asp-for="Password" class="form-control" placeholder="Password" />
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+       
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>

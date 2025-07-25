@@ -8,8 +8,8 @@
                         <img src="~/assets/img/logo.png" alt="" id="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation" id="mobile-navbar-show">
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="mobile-navbar-show">
                         <span class="navbar-toggler-icon" style="font-size: 12px;"></span>
                     </button>
 
@@ -111,19 +111,20 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Elements</a>
+                                <a class="nav-link" href="#">Account</a>
                                 <ul class="list-unstyled py-3 elements">
-                                    <li class=""><a class="px-1" href="">Element 1</a></li>
-                                    <li class=""><a class="px-1" href="">Element 2</a></li>
-                                    <li class="element">
-                                        <i class="fas fa-chevron-right fa-sm mr-5"></i>
-                                        <a class="px-1" href="">Element 3</a>
-                                        <ul class="list-unstyled py-3">
-                                            <li class=""><a class="px-3" href="">Element 1</a></li>
-                                            <li class=""><a class="px-3" href="">Element 2</a></li>
-                                            <li class=""><a class="px-3" href="">Element 3</a></li>
-                                        </ul>
-                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li class=""><a class="px-1" href="">@User.Identity.Name</a></li>
+                                        <li class=""><a class="px-1" href="">Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class=""><a class="px-1" asp-controller="Account" asp-action="Login">Login</a></li>
+                                        <li class=""><a class="px-1" asp-controller="Account" asp-action="Register">Register</a></li>
+                                    }
+
+                                   
                                 </ul>
                             </li>
                             <li class="nav-item my-auto search">

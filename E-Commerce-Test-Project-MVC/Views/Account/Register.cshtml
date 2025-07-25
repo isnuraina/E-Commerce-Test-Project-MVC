@@ -1,0 +1,30 @@
+﻿@model RegisterVM
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <form method="post" asp-controller="Account" asp-action="Register" class="w-100" style="max-width: 400px;">
+        <h1 class="text-center mb-4">Register</h1>
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="form-group">
+            <input asp-for="FullName" class="form-control" placeholder="FullName" />
+            <span class="text-danger" asp-validation-for="FullName"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="UserName" class="form-control" placeholder="UserName" />
+            <span class="text-danger" asp-validation-for="UserName"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Email" class="form-control" placeholder="Email" />
+            <span class="text-danger" asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" class="form-control" placeholder="Password" />
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>

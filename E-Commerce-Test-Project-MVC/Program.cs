@@ -1,6 +1,8 @@
 using E_Commerce_Test_Project_MVC.Data;
+using E_Commerce_Test_Project_MVC.Models;
 using E_Commerce_Test_Project_MVC.Services;
 using E_Commerce_Test_Project_MVC.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce_Test_Project_MVC
@@ -19,6 +21,22 @@ namespace E_Commerce_Test_Project_MVC
             builder.Services.AddDbContext<AppDbContext>(options =>
    options.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceProject")));
 
+            builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
+                                                        .AddDefaultTokenProviders()
+                ;
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                options.User.RequireUniqueEmail = true;
+            });
+
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())
@@ -33,6 +51,7 @@ namespace E_Commerce_Test_Project_MVC
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
             app.MapControllerRoute(
             name: "areas",
             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
