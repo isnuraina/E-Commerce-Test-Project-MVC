@@ -113,16 +113,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Account</a>
                                 <ul class="list-unstyled py-3 elements">
+                                   
+
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <li class=""><a class="px-1" href="">@User.Identity.Name</a></li>
-                                        <li class=""><a class="px-1" href="">Logout</a></li>
+                                        <li><a>@User.Identity.Name</a></li>
+                                        <li>
+                                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                                <button type="submit">Logout</button>
+                                            </form>
+                                        </li>
                                     }
                                     else
                                     {
-                                        <li class=""><a class="px-1" asp-controller="Account" asp-action="Login">Login</a></li>
-                                        <li class=""><a class="px-1" asp-controller="Account" asp-action="Register">Register</a></li>
+                                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
                                     }
+
 
                                    
                                 </ul>

@@ -44,8 +44,7 @@ namespace E_Commerce_Test_Project_MVC.Controllers
                     ModelState.AddModelError("", item.Description);
                 }
                 return View(request);
-            }
-            await _signInManager.SignInAsync(user, false);
+            }           
             return RedirectToAction("Login","Account");
         }
         [HttpGet]
@@ -78,6 +77,13 @@ namespace E_Commerce_Test_Project_MVC.Controllers
                 return View(request);
             }
             var response = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
