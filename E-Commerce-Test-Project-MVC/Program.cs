@@ -22,8 +22,7 @@ namespace E_Commerce_Test_Project_MVC
    options.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceProject")));
 
             builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
-                                                        .AddDefaultTokenProviders()
-                ;
+                                                        .AddDefaultTokenProviders();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -33,6 +32,7 @@ namespace E_Commerce_Test_Project_MVC
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
+                options.SignIn.RequireConfirmedEmail = true;
 
                 options.User.RequireUniqueEmail = true;
             });

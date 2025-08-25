@@ -3,6 +3,7 @@ using E_Commerce_Test_Project_MVC.Data;
 using E_Commerce_Test_Project_MVC.Helpers.Extensions;
 using E_Commerce_Test_Project_MVC.Models;
 using E_Commerce_Test_Project_MVC.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

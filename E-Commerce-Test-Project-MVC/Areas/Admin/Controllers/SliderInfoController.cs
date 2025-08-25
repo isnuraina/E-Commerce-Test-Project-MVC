@@ -4,12 +4,14 @@ using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.SliderInfo;
 using E_Commerce_Test_Project_MVC.Data;
 using E_Commerce_Test_Project_MVC.Helpers.Extensions;
 using E_Commerce_Test_Project_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class SliderInfoController : Controller
     {
         private readonly AppDbContext _context;

@@ -3,6 +3,7 @@ using E_Commerce_Test_Project_MVC.Areas.Admin.ViewModels.Slider;
 using E_Commerce_Test_Project_MVC.Data;
 using E_Commerce_Test_Project_MVC.Helpers.Extensions;
 using E_Commerce_Test_Project_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace E_Commerce_Test_Project_MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class SliderController : Controller
     {
         private readonly AppDbContext _context;
